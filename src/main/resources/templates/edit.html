@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{mylayout}"
+	lang="fr">
+<head>
+<meta charset="utf-8">
+<title>gestion des cinemas</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="col-md-4 col-xs-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">Mettre à jour un article</div>	
+				<div class="panel-body">
+					<form th:action="@{/save}" method="post">	
+							<div class="form-group">
+								<label class="control-label"> Id :  </label> <label th:text=${article.id}></label>
+								<input class="form-control" type="hidden" name="id" th:value="${article.id}"> 	
+							</div>								
+							<div class="form-group">
+								<label class="control-label"> Marque : </label> 
+								<input class="form-control" type="text" name="brand" th:value="${article.brand}"> 
+								<span th:errors="${article.brand}" class="text-danger" ></span>	
+							</div>				
+							<div class="form-group">
+								<label class="control-label"> Description : </label> 
+								<input class="form-control" type="text" name="description" th:value="${article.description}"> 
+								<span th:errors="${article.description}" class="text-danger"></span>	
+							</div>
+							<div class="form-group">
+								<label class="control-label"> Price : </label> 
+								<input class="form-control" type="text" name="price" th:value="${article.price}">
+								<span th:errors="${article.price}" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label class="control-label"> Catégorie : </label>
+								<select class="form-control" name="category" th:value="${article.category}">									 
+									    <option 
+									    	th:each="category : ${categories}" 
+									    	th:value="${category.id}" 
+									    	th:text="${category.name}"
+									    	th:selected="${article.category.id==category.id}">
+									    </option>									
+								</select>
+								<span th:errors="${article.category}" class="text-danger"></span>									
+							</div>													
+							<button type="submit" class="btn btn-primary">Update</button>													
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

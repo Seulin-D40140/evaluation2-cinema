@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{mylayout}"
+	lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Information de livraison</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="col-md-4 col-xs-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">Saisissez les informations</div>	
+				<div class="panel-body">
+					<form th:action="@{/porder}" method="post">		
+								
+							<div class="form-group">
+								<label class="control-label"> Nom : </label> 
+								<input class="form-control" type="text" name="name" th:value="${customer.name}"> 	
+								<span th:errors="${customer.name}" class="text-danger" ></span>									
+							</div>
+							<div class="form-group">
+								<label class="control-label"> Prénom : </label> 
+								<input class="form-control" type="text" name="sname"  th:value="${customer.sname}"> 	
+								<span th:errors="${customer.sname}" class="text-danger" ></span>	 									
+							</div>
+							<div class="form-group">
+								<label class="control-label"> Email : </label> 
+								<input class="form-control" type="text" name="email"  th:value="${customer.email}"> 	
+								<span th:errors="${customer.email}" class="text-danger" ></span>									
+							</div>
+							<div class="form-group">
+								<label class="control-label"> Adresse : </label> 
+								<input class="form-control" type="text" name="address" th:value="${customer.address}"> 	
+								<span th:errors="${customer.address}" class="text-danger" ></span>									
+							</div>
+							<div class="form-group">
+								<label class="control-label"> Téléphone : </label> 
+								<input class="form-control" type="text" name="phone" th:value="${customer.phone}"> 	
+								<span th:errors="${customer.phone}" class="text-danger" ></span>									
+							</div>
+							
+							<button type="submit" class="btn btn-success">Next</button>				
+					</form>
+				</div>							
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

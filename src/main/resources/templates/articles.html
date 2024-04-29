@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th        = "http://thymeleaf.org"
+	  xmlns:layout    = "http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate = "~{mylayout}" 
+	  xmlns:sec		  ="http://www.thymeleaf.org/extras/spring-security5"
+	  lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Mes cinemas</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="text-danger" th:if="${error}" th:text="${error}">	</div>
+	
+		<div class = "container-fluid">
+			<ul class = "nav nav-pills">			
+					<li th:class="${idCat-1 == status.index}?'active':''"  th:each="city,status:${citys}" 	>
+						<a th:href="@{ /category(id=${status.index}) }"    th:text="${city.name}">  </a>
+					</li>					
+			</ul>
+		</div>
+		
+		<div class = "container col-md-6 marge">
+			<div class="panel panel-primary">
+				<div class="panel-heading">List articles</div>
+				
+				<div class="panel-body">
+					<form th:action="@{/index}" method="get">		<!-- validation du formulaire -> appel de la méthode index -->
+						<label>keyword</label>
+						<input type="text" name="keyword" th:value="${keyword}">
+						<button type="submit" class="btn btn-primary"> Search </button>
+					</form>
+				</div>
+				<div class="panel-body">
+					<table class = "table">
+						<tr>
+							<th>Id</th> <th>Cinema</th>
+						</tr>
+						<tr th:each="a:${listCinema}">
+							<td th:text="${a.id}"> </td>
+							<td th:text="${a.name}"> </td>
+
+							<td>								  									<!-- après une suppression, pour garder le même contexte ou page -->
+								<a class="btn btn-warning" th:href="@{ /delete (id=${a.id} , page=${currentPage} , keyword=${keyword} , idCat=${idCat} ) }" >voir films</a>
+							</td>
+
+							<td sec:authorize="hasRole('ROLE_ADMIN')">								  									<!-- après une suppression, pour garder le même contexte ou page --> 	
+								<a class="btn btn-danger" onclick="return confirm('Are you sure ?')" th:href="@{ /delete (id=${a.id} , page=${currentPage} , keyword=${keyword} , idCat=${idCat} ) }" >Delete</a> 
+							</td>
+							
+							<td sec:authorize="hasRole('ROLE_ADMIN')">								  									 	
+								<a class="btn btn-info" th:href="@{ /edit (id=${a.id}) }" >Edit</a> 
+							</td>							
+						</tr>	
+					</table>
+					
+					<ul class = "nav nav-pills">			<!-- alignement de la liste -->
+						<li th:class="${currentPage==status.index}?'active':''"  th:each="page,status:${pages}">	
+							<!-- 4 activer cette balise si condition v -->		<!-- 1 pour chaque indice de notre tableau "de pages"-->	
+							<a th:href="@{ /index (page=${status.index} , keyword=${keyword} , idCat=${idCat} ) }" th:text="${status.index}"></a>
+							<!-- 3 lien vers un index?page=0 ou 1 ...     5 motclé=motclé courant				   2 afficher l'indice du tableau -->
+						</li>
+					</ul>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

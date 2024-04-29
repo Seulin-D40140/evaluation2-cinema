@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th     = "http://thymeleaf.org" 
+	  xmlns:layout = "http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec	   ="http://www.thymeleaf.org/extras/spring-security5"
+	  lang="fr">
+
+<head>
+<meta charset="utf-8">
+<title>Layout</title>
+<link rel="stylesheet" 			href="../static/css/bootstrap.min.css"	th:href="@{css/bootstrap.min.css}">
+<link rel="stylesheet" 			href="../static/css/style.css"			th:href="@{css/style.css}">
+<link rel="stylesheet" 			type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"/>
+</head>
+
+<body>
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	  
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="#">Ma boutique en ligne</a>
+		    </div>
+		    
+		    <ul class="nav navbar-nav">
+		      <li><a th:href="@{/index}">Accueil</a></li>
+	          <li sec:authorize="hasRole('ROLE_ADMIN')">
+	          	<a th:href="@{/article}">Article</a>
+	          </li>	         
+		      <li>
+		      	<a th:href="@{/vcart}" class="fa fa-shopping-cart" th:text="${nbcart}"> </a>		      	
+		      </li>	 
+		    </ul>
+		    
+		    <ul class="nav navbar-nav pull-right">
+		    	<li>
+		    		<a th:href="@{/logout}" class="fas fa-sign-in-alt" th:text="${username}"></a>
+		    	</li>
+		    </ul>
+	    
+	  </div>
+	</nav>
+	
+	<section layout:fragment="content"></section>
+	
+	<footer>
+		
+	</footer>
+</body>
+</html>
