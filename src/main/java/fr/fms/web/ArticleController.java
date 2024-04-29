@@ -68,7 +68,7 @@ public class ArticleController {
 			}
 			else cinema = businessImpl.getCinemaPages(kw,page);
 						
-			model.addAttribute("idCat",idCity);
+			model.addAttribute("idCity",idCity);
 			model.addAttribute("listCinema",cinema.getContent());
 			model.addAttribute("pages", new int[cinema.getTotalPages()]);
 			model.addAttribute("currentPage",page);

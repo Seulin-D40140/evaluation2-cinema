@@ -23,4 +23,13 @@ public class Cinema implements Serializable
 
     @ManyToOne
     private City city;
+
+    @OneToMany(mappedBy = "cinema")
+    private Collection<Movie> movie;
+
+    public Cinema(String name , City city)
+    {
+        this.name = name;
+        this.city = city;
+    }
 }

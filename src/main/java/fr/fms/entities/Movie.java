@@ -22,6 +22,6 @@ public class Movie implements Serializable
 
     private String description;
 
-//    @OneToMany
-//    Cinema cinema;
+    @ManyToOne
+    private Cinema cinema;
 }
