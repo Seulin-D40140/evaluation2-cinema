@@ -72,5 +72,20 @@ public class SpringShopJpaApplication implements CommandLineRunner
 		movieRepository.save(new Movie(null , "loki" , "thor" , pixar));
 		movieRepository.save(new Movie(null , "fast X" , "fast and furious" , pixous));
 		movieRepository.save(new Movie(null , "nightcore" , "horror movie" , arcane));
+		movieRepository.save(new Movie(null , "2fast2furious" , "paul walker", ugc));
+		movieRepository.save(new Movie(null , "inception" , "nolan" , grandrex));
+		movieRepository.save(new Movie(null , "little bird" , "animation" , pathe));
+		movieRepository.save(new Movie(null , "supergirl" , "series movies" , oblivion));
+		movieRepository.save(new Movie(null , "walking dead" , "the movie" , ultraciner));
+		movieRepository.save(new Movie(null , "fear walking dead" , "the movie", gaumon));
+		movieRepository.save(new Movie(null , "deadpool" , "rayan reynonlds" , place));
+		movieRepository.save(new Movie(null , "batman" , "darknight" , pathoche));
+		movieRepository.save(new Movie(null , "wonderwoman" , "rise of queen" , gamon));
+		movieRepository.save(new Movie(null , "tomb raider" , "life and death" , ugc2));
+		movieRepository.save(new Movie(null , "volt" , "electric dog", disney));
+		movieRepository.save(new Movie(null , "the 100" , "the movie" , garmaron));
+		movieRepository.save(new Movie(null , "warzone" , "gear of war" , uhd));
+		movieRepository.save(new Movie(null , "obviously" , "love movie" , fhd));
+		movieRepository.save(new Movie(null , "midnightcore" , "horror movie" , pathoche));
 	}
 }

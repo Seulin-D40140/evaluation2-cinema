@@ -7,17 +7,16 @@ import java.util.Optional;
 
 //import javax.validation.Valid;
 import fr.fms.dao.CinemaRepository;
-import fr.fms.entities.Cinema;
+import fr.fms.dao.MovieRepository;
+import fr.fms.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 //import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import fr.fms.dao.ArticleRepository;
 import fr.fms.dao.CategoryRepository;
-import fr.fms.entities.Article;
-import fr.fms.entities.Category;
-import fr.fms.entities.Customer;
 
 @Service
 public class IBusinessImpl implements IBusiness {
@@ -29,6 +28,9 @@ public class IBusinessImpl implements IBusiness {
 
 	@Autowired
 	CinemaRepository cinemaRepository;
+
+	@Autowired
+	MovieRepository movieRepository;
 	
 	private HashMap<Long, Article> cart;
 	private Customer customer;
@@ -102,16 +104,6 @@ public class IBusinessImpl implements IBusiness {
 	public void saveArticle(Article article) throws Exception {
 		articleRepository.save(article);		
 	}
-	
-	@Override
-	public Page<Cinema> getCinemaByCityPage(Long idCity, int page) throws Exception {
-		return cinemaRepository.findByCityId(idCity, PageRequest.of(page, 5));
-	}
-
-	@Override
-	public Page<Cinema> getCinemaPages(String kw, int page) throws Exception {
-		return cinemaRepository.findByNameContains(kw , PageRequest.of(page, 5));
-	}
 
 	@Override
 	public void deleteArticle(Long id) throws Exception {
@@ -134,8 +126,23 @@ public class IBusinessImpl implements IBusiness {
 			Thread.currentThread().interrupt();
 		}
 	}
-	
+
 	public String great() {
 		return "Hello World";
+	}
+
+	@Override
+	public Page<Cinema> getCinemaByCityPage(Long idCity, int page) throws Exception {
+		return cinemaRepository.findByCityId(idCity, PageRequest.of(page, 5));
+	}
+
+	@Override
+	public Page<Movie> getMoviesByCinemaPage(Long idCiner , int page ) throws Exception {
+		return movieRepository.findByCinemaId(idCiner , PageRequest.of(page, 5));
+	}
+
+	@Override
+	public Page<Cinema> getCinemaPages(String kw, int page) throws Exception {
+		return cinemaRepository.findByNameContains(kw , PageRequest.of(page, 5));
 	}
 }

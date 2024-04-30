@@ -3,6 +3,7 @@ package fr.fms.business;
 import java.util.List;
 
 import fr.fms.entities.Cinema;
+import fr.fms.entities.Movie;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,9 @@ public interface IBusiness {
 	 */
 	public List<Article> getArticles() throws Exception;
 
-    /**
+
+
+	/**
 	 * Méthode qui renvoi la liste des articles en base paginée
 	 * @param kw est un mot dont on souhaite afficher tous les articles le contenant 
 	 * @param page correspond à la page active côté front, cela assure la pagination
@@ -33,7 +36,7 @@ public interface IBusiness {
 	 * @return Page<Article>
 	 * @throws Exception
 	 */
-	public Page<Cinema> getCinemaByCityPage(Long idCat, int page) throws Exception;
+
 	/**
 	 * Méthode qui sauvegarde un article en base
 	 * @param article
@@ -83,5 +86,9 @@ public interface IBusiness {
 	 * Méthode qui renvoi le nombre d'éléments dans le panier en cours
 	 * @return int
 	 */
-	public int getNbCart();						
+	public int getNbCart();
+
+	public Page<Cinema> getCinemaByCityPage(Long idCat, int page) throws Exception;
+
+	public Page <Movie> getMoviesByCinemaPage(Long idCiner , int page) throws Exception;
 }

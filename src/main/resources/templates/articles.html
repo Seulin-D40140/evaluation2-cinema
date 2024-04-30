@@ -42,7 +42,7 @@
 							<td th:text="${cinema.name}"> </td>
 
 							<td>								  									<!-- après une suppression, pour garder le même contexte ou page -->
-								<a class="btn btn-warning" th:href="@{ /delete (id=${cinema.id} , page=${currentPage} , keyword=${keyword} , idCity=${idCity} ) }" >voir films</a>
+								<a class="btn btn-warning" th:href="@{/movie (idCiner=${cinema.id} ) }"> voir films</a>
 							</td>
 
 							<td sec:authorize="hasRole('ROLE_ADMIN')">								  									<!-- après une suppression, pour garder le même contexte ou page --> 	
@@ -62,7 +62,6 @@
 							<!-- 3 lien vers un index?page=0 ou 1 ...     5 motclé=motclé courant				   2 afficher l'indice du tableau -->
 						</li>
 					</ul>
-					
 				</div>
 			</div>
 		</div>

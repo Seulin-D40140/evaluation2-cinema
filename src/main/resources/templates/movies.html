@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th        = "http://thymeleaf.org"
+      xmlns:layout    = "http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate = "~{mylayout}"
+      xmlns:sec		  ="http://www.thymeleaf.org/extras/spring-security5"
+      lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Mes cinemas</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+  <div class="text-danger" th:if="${error}" th:text="${error}">	</div>
+  <div class = "container col-md-6 marge">
+    <div class="panel panel-primary">
+      <div class="panel-heading">List des films </div>
+
+      <div class="panel-body">
+        <table class = "table">
+          <tr>
+            <th>Id</th> <th>Films a l'affiche</th> <th>description</th>
+          </tr>
+          <tr th:each="movie:${listMovies}">
+            <td th:text="${movie.id}"> </td>
+            <td th:text="${movie.name}"> </td>
+            <td th:text="${movie.description}"> </td>
+
+        </table>
+
+        <ul class = "nav nav-pills">			<!-- alignement de la liste -->
+          <li th:class="${currentPage==status.index}?'active':''"  th:each="page,status:${pages}">
+            <!-- 4 activer cette balise si condition v -->		<!-- 1 pour chaque indice de notre tableau "de pages"-->
+            <a th:href="@{ /index (page=${status.index} , keyword=${keyword} , idCity=${idCity} ) }" th:text="${status.index}"></a>
+            <!-- 3 lien vers un index?page=0 ou 1 ...     5 motclé=motclé courant				   2 afficher l'indice du tableau -->
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

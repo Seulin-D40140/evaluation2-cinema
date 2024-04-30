@@ -37,9 +37,6 @@ public class ArticleController {
 
 	@Autowired
 	MovieRepository movieRepository;
-
-	@Autowired
-	CinemaRepository cinemaRepository;
 	
 	private final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 	/**
