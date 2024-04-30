@@ -23,7 +23,7 @@ public class City<Private> implements Serializable
 
     private String postalCode;
 
-    @OneToMany(mappedBy = "city")
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private Collection<Cinema> cinema;
 
     public City(String name , String postalCode)

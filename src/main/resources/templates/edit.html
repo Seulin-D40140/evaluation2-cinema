@@ -16,36 +16,25 @@
 				<div class="panel-body">
 					<form th:action="@{/save}" method="post">	
 							<div class="form-group">
-								<label class="control-label"> Id :  </label> <label th:text=${article.id}></label>
-								<input class="form-control" type="hidden" name="id" th:value="${article.id}"> 	
+								<label class="control-label"> Id :  </label> <label th:text=${cinema.id}></label>
+								<input class="form-control" type="hidden" name="id" th:value="${cinema.id}">
 							</div>								
 							<div class="form-group">
-								<label class="control-label"> Marque : </label> 
-								<input class="form-control" type="text" name="brand" th:value="${article.brand}"> 
-								<span th:errors="${article.brand}" class="text-danger" ></span>	
-							</div>				
-							<div class="form-group">
-								<label class="control-label"> Description : </label> 
-								<input class="form-control" type="text" name="description" th:value="${article.description}"> 
-								<span th:errors="${article.description}" class="text-danger"></span>	
+								<label class="control-label"> Name : </label>
+								<input class="form-control" type="text" name="name" th:value="${cinema.name}">
+								<span th:errors="${cinema.name}" class="text-danger" ></span>
 							</div>
-							<div class="form-group">
-								<label class="control-label"> Price : </label> 
-								<input class="form-control" type="text" name="price" th:value="${article.price}">
-								<span th:errors="${article.price}" class="text-danger"></span>
-							</div>
-							<div class="form-group">
-								<label class="control-label"> Catégorie : </label>
-								<select class="form-control" name="category" th:value="${article.category}">									 
-									    <option 
-									    	th:each="category : ${categories}" 
-									    	th:value="${category.id}" 
-									    	th:text="${category.name}"
-									    	th:selected="${article.category.id==category.id}">
-									    </option>									
-								</select>
-								<span th:errors="${article.category}" class="text-danger"></span>									
-							</div>													
+						<!--<div class="form-group">
+                            <label class="control-label"> City : </label>
+                            <select class="form-control" name="city" th:value="${cinema.city.id}">
+                                    <option
+                                        th:each="city : ${cityzen}"
+                                        th:value="${city.id}"
+                                        th:text="${city.name}">
+                                    </option>
+                            </select>
+                            <span th:errors="${cinema.city}" class="text-danger"></span>
+                        </div>-->
 							<button type="submit" class="btn btn-primary">Update</button>													
 					</form>
 				</div>

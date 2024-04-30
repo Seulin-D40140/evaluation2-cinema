@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 //import javax.validation.Valid;
-import fr.fms.dao.CinemaRepository;
-import fr.fms.dao.MovieRepository;
+import fr.fms.dao.*;
 import fr.fms.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,8 +14,8 @@ import org.springframework.data.domain.PageRequest;
 //import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import fr.fms.dao.ArticleRepository;
-import fr.fms.dao.CategoryRepository;
+
+import javax.transaction.Transactional;
 
 @Service
 public class IBusinessImpl implements IBusiness {
@@ -31,6 +30,9 @@ public class IBusinessImpl implements IBusiness {
 
 	@Autowired
 	MovieRepository movieRepository;
+
+	@Autowired
+	CityRepository cityRepository;
 	
 	private HashMap<Long, Article> cart;
 	private Customer customer;
@@ -93,27 +95,7 @@ public class IBusinessImpl implements IBusiness {
 	public List<Article> getArticles() throws Exception {
 		return articleRepository.findAll();
 	}
-	
-	@Override
-	public Article getArticleById(Long id) throws Exception {
-		Optional<Article> optional = articleRepository.findById(id);
-		return optional.isPresent() ? optional.get() : null;
-	}
-	
-	@Override
-	public void saveArticle(Article article) throws Exception {
-		articleRepository.save(article);		
-	}
 
-	@Override
-	public void deleteArticle(Long id) throws Exception {
-		articleRepository.deleteById(id);			
-	}
-	
-	public List<Category> getCatogries() throws Exception {
-		return categoryRepository.findAll();
-	}
-	
 	public Category getCategoryById(Long id) throws Exception {
 		return categoryRepository.getById(id);
 	}
@@ -144,5 +126,35 @@ public class IBusinessImpl implements IBusiness {
 	@Override
 	public Page<Cinema> getCinemaPages(String kw, int page) throws Exception {
 		return cinemaRepository.findByNameContains(kw , PageRequest.of(page, 5));
+	}
+
+	@Transactional
+	public void deleteCinema(Long id) throws Exception {
+		cinemaRepository.deleteById(id);
+	}
+
+	@Override
+	public void deleteCity(Long id) throws Exception {
+		cityRepository.deleteById(id);
+	}
+
+	@Override
+	public void deleteMovie(Long id) throws Exception {
+		movieRepository.deleteById(id);
+	}
+
+	@Override
+	public Cinema getCinemaById(Long id) throws Exception {
+		Optional<Cinema> optional = cinemaRepository.findById(id);
+		return optional.isPresent() ? optional.get() : null;
+	}
+
+	public List<City> getCity() throws Exception {
+		return cityRepository.findAll();
+	}
+
+	@Override
+	public void saveCinema(Cinema cinema) throws Exception {
+		cinemaRepository.save(cinema);
 	}
 }

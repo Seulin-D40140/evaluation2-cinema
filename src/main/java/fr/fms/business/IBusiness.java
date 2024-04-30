@@ -2,13 +2,9 @@ package fr.fms.business;
 
 import java.util.List;
 
-import fr.fms.entities.Cinema;
-import fr.fms.entities.Movie;
+import fr.fms.entities.*;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import fr.fms.entities.Article;
-import fr.fms.entities.Category;
 
 @Service
 public interface IBusiness {
@@ -38,30 +34,12 @@ public interface IBusiness {
 	 */
 
 	/**
-	 * Méthode qui sauvegarde un article en base
-	 * @param article
-	 * @throws Exception
-	 */
-	public void saveArticle(Article article) throws Exception;
-	/**
-	 * Méthode qui renvoi un article en base à partir de son id
-	 * @param id
-	 * @return Article 
-	 * @throws Exception
-	 */
-	public Article getArticleById(Long id) throws Exception;
-	/**
 	 * Méthode qui supprime un article à partir de son id
 	 * @param id
 	 * @throws Exception
 	 */
-	public void deleteArticle(Long id) throws Exception;
-	/**
-	 * Méthode qui renvoi la liste des catégories en base
-	 * @return
-	 * @throws Exception
-	 */
-	public List<Category> getCatogries() throws Exception;
+
+
 	
 	/**
 	 * Méthode qui ajoute un article au panier
@@ -91,4 +69,32 @@ public interface IBusiness {
 	public Page<Cinema> getCinemaByCityPage(Long idCat, int page) throws Exception;
 
 	public Page <Movie> getMoviesByCinemaPage(Long idCiner , int page) throws Exception;
+
+	public void deleteCinema(Long id) throws Exception;
+
+	public void deleteMovie(Long id) throws Exception;
+
+	public void deleteCity(Long id) throws Exception;
+
+	/**
+	 * Méthode qui renvoi un article en base à partir de son id
+	 * @param id
+	 * @return Article
+	 * @throws Exception
+	 */
+	public Cinema getCinemaById(Long id) throws Exception;
+
+	/**
+	 * Méthode qui renvoi la liste des catégories en base
+	 * @return
+	 * @throws Exception
+	 */
+	public List<City> getCity() throws Exception;
+
+	/**
+	 * Méthode qui sauvegarde un article en base
+	 * @param cinema
+	 * @throws Exception
+	 */
+	public void saveCinema(Cinema cinema) throws Exception;
 }

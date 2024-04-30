@@ -16,7 +16,7 @@
 		<div class = "container-fluid">
 			<ul class = "nav nav-pills">			
 					<li th:class="${idCity-1 == status.index}?'active':''"  th:each="city,status:${citys}" 	>
-						<a th:href="@{ /category(id=${status.index}) }"    th:text="${city.name}">  </a>
+						<a th:href="@{ /citySort(id=${status.index}) }"    th:text="${city.name}">  </a>
 					</li>					
 			</ul>
 		</div>

@@ -22,9 +22,10 @@ public class Cinema implements Serializable
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "city_id")
     private City city;
 
-    @OneToMany(mappedBy = "cinema")
+    @OneToMany(mappedBy = "cinema", cascade = CascadeType.ALL)
     private Collection<Movie> movie;
 
     public Cinema(String name , City city)

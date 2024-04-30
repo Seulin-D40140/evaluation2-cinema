@@ -63,17 +63,17 @@ public class CartController {
 	 * @param redirectAttrs sert à injecter un paramètre dans la redirection, delors ../index pourra le récupérer via le modelAttribute
 	 * @return ../index
 	 */
-	@GetMapping("/acart")
-	public String addArticleCart(Long id, int page, String keyword , Long idCat, RedirectAttributes redirectAttrs) {	
-		try {
-			business.addArtToCart(business.getArticleById(id));
-		}
-		catch(Exception e) {
-			redirectAttrs.addAttribute("error",e.getMessage());
-			logger.error("[CART CONTROLLER : ADD ARTICLE TO CART] : {} " , e.getMessage());
-		}
-		return "redirect:/index?page="+page+"&keyword="+keyword + "&idCat=" + idCat + "&cart=" + business.getNbCart(); 
-	}
+//	@GetMapping("/acart")
+//	public String addArticleCart(Long id, int page, String keyword , Long idCat, RedirectAttributes redirectAttrs) {
+//		try {
+//			business.addArtToCart(business.getArticleById(id));
+//		}
+//		catch(Exception e) {
+//			redirectAttrs.addAttribute("error",e.getMessage());
+//			logger.error("[CART CONTROLLER : ADD ARTICLE TO CART] : {} " , e.getMessage());
+//		}
+//		return "redirect:/index?page="+page+"&keyword="+keyword + "&idCat=" + idCat + "&cart=" + business.getNbCart();
+//	}
 	
 	/**
 	 * Méthode en GET correspondant à l'url .../dcart consistant à supprimer un article du panier

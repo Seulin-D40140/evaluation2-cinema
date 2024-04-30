@@ -23,5 +23,6 @@ public class Movie implements Serializable
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "cinema_id")
     private Cinema cinema;
 }
