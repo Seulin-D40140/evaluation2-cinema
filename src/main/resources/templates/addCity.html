@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mylayout}"
+      lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Saisir une nouvelles ville</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="col-md-4 col-xs-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading text-center">Saisir une nouvelle ville</div>
+                <div class="panel-body">
+                    <form th:action="@{/saveCity}" method="post" th:object="${city}">
+
+                        <div class="form-group">
+                            <label class="control-label"> Nom : </label>
+                            <input class="form-control" type="text" name="name" th:value="${city.name}">
+                            <span th:errors="${city.name}" class="text-danger" ></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> code postal : </label>
+                            <input class="form-control" type="text" name="postalCode" th:value="${city.postalCode}">
+                            <span th:errors="${city.postalCode}" class="text-danger" ></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class = "table">
+                    <h2>LISTE DES VILLES</h2>
+                    <tr>
+                        <th>Id</th> <th>Ville</th>
+                    </tr>
+                    <tr th:each="city:${listCity}">
+                        <td th:text="${city.id}"> </td>
+                        <td th:text="${city.name}"> </td>
+
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">								  									<!-- après une suppression, pour garder le même contexte ou page -->
+                            <a class="btn btn-danger" onclick="return confirm('Are you sure ?')" th:href="@{ /deleteCity (id=${city.id}) }" >Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

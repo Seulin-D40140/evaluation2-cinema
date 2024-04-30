@@ -23,10 +23,10 @@
 		    <ul class="nav navbar-nav">
 		      <li><a th:href="@{/index}">Accueil</a></li>
 	          <li sec:authorize="hasRole('ROLE_ADMIN')">
-	          	<a th:href="@{/article}">add city</a>
+	          	<a th:href="@{/gestionCity}">gestion city city</a>
 	          </li>
 				<li sec:authorize="hasRole('ROLE_ADMIN')">
-					<a th:href="@{/article}">add cinema</a>
+					<a th:href="@{/addCinema}">add cinema</a>
 				</li>
 				<li>
 		      	<a th:href="@{/vcart}" class="fa fa-shopping-cart" th:text="${nbcart}"> </a>		      	

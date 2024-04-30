@@ -133,7 +133,7 @@ public class IBusinessImpl implements IBusiness {
 		cinemaRepository.deleteById(id);
 	}
 
-	@Override
+	@Transactional
 	public void deleteCity(Long id) throws Exception {
 		cityRepository.deleteById(id);
 	}
@@ -156,5 +156,10 @@ public class IBusinessImpl implements IBusiness {
 	@Override
 	public void saveCinema(Cinema cinema) throws Exception {
 		cinemaRepository.save(cinema);
+	}
+
+	@Override
+	public void saveCity(City city) throws Exception {
+		cityRepository.save(city);
 	}
 }

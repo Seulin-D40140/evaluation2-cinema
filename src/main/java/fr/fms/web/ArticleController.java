@@ -60,28 +60,5 @@ public class ArticleController {
 //		}
 //		return "edit";
 //	}
-	
-	/**
-	 * Méthode en GET correspondant à l'url .../article permettant d'ajouter un nouvel article
-	 * @param model
-	 * @return page article.html
-	 */
-	@GetMapping("/article")
-	public String article(Model model) {
-		model.addAttribute("cinema" , new Cinema());
-		try {
-			model.addAttribute("listCity",businessImpl.getCity());
-		} catch (Exception e) {
-			model.addAttribute("error",e.getMessage());
-			logger.error("[ARTICLE CONTROLLER : MANAGE NEW ARTICLE] : {} " , e.getMessage());
-		}
-		return "article";
-	}
-	
 
-	
-	@RequestMapping("/greating")
-	public @ResponseBody String greating() {
-		return businessImpl.great();
-	}	
 }

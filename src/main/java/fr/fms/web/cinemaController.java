@@ -94,6 +94,23 @@ public class cinemaController
         return "articles";
     }
 
+    /**
+     * Méthode en GET correspondant à l'url .../article permettant d'ajouter un nouvel article
+     * @param model
+     * @return page article.html
+     */
+    @GetMapping("/addCinema")
+    public String article(Model model) {
+        model.addAttribute("cinema" , new Cinema());
+        try {
+            model.addAttribute("listCity",businessImpl.getCity());
+        } catch (Exception e) {
+            model.addAttribute("error",e.getMessage());
+            logger.error("[ARTICLE CONTROLLER : MANAGE NEW ARTICLE] : {} " , e.getMessage());
+        }
+        return "addCinema";
+    }
+
     @GetMapping("/citySort")
     public String categories(Long id, Model model , @RequestParam(name="page" , defaultValue = "0") int page) {
         Long idCity = (long) -1;
@@ -138,19 +155,19 @@ public class cinemaController
      * @param model
      * @return page edit.html pour l'édition d'un article
      */
-    @GetMapping("/edit")
+    @GetMapping("/editCinema")
     public String edit(Long id, Model model) {
         Cinema cinema;
 
         try {
             cinema = businessImpl.getCinemaById(id);
-//            model.addAttribute("cityzen",businessImpl.getCity());
+            model.addAttribute("listCity",businessImpl.getCity());
             model.addAttribute("cinema", cinema);
         } catch (Exception e) {
             model.addAttribute("error",e.getMessage());
             logger.error("[ARTICLE CONTROLLER : EDIT] : {} " , e.getMessage());
         }
-        return "edit";
+        return "editCinema";
     }
 
     /**
@@ -167,7 +184,24 @@ public class cinemaController
         try {
             if(bindingResult.hasErrors()) {
                 model.addAttribute("listCity",businessImpl.getCity());
-                return "article";
+                return "addCinema";
+            }
+            businessImpl.saveCinema(cinema);
+        }
+        catch(Exception e) {
+            redirectAttrs.addAttribute("error",e.getMessage());
+            logger.error("[ARTICLE CONTROLLER : SAVE ARTICLE] : {} " , e.getMessage());
+        }
+        return "redirect:/index";
+    }
+
+    @PostMapping("/update")
+    public String update(Cinema cinema, BindingResult bindingResult, Model model, RedirectAttributes redirectAttrs) {
+
+        try {
+            if(bindingResult.hasErrors()) {
+                model.addAttribute("listCity",businessImpl.getCity());
+                return "addCinema";
             }
             businessImpl.saveCinema(cinema);
         }

@@ -38,7 +38,6 @@ public class MovieController
                         @RequestParam(name="idCiner" , defaultValue = "0") Long idCiner,
                         @RequestParam(name="nbcart" , defaultValue = "0") int cart,
                         @ModelAttribute(name="error") String error) {
-        System.out.println(idCiner);
         Page<Movie> movies = null;
         model.addAttribute("error", model.getAttribute("error"));
         try {

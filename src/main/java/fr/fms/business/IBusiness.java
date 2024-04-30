@@ -97,4 +97,6 @@ public interface IBusiness {
 	 * @throws Exception
 	 */
 	public void saveCinema(Cinema cinema) throws Exception;
+
+	public void saveCity(City city) throws Exception;
 }
