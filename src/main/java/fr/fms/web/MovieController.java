@@ -14,9 +14,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class MovieController
@@ -68,5 +71,46 @@ public class MovieController
             logger.error("[ARTICLE CONTROLLER : INDEX] : {} " , e.getMessage());
         }
         return "movies";
+    }
+
+    @PostMapping("/saveMovie")
+    public String saveMovie(Movie movie, BindingResult bindingResult, Model model, RedirectAttributes redirectAttrs) {
+
+        try {
+            if(bindingResult.hasErrors()) {
+                model.addAttribute("listCity",businessImpl.getCity());
+                return "addMovie";
+            }
+            businessImpl.saveMovie(movie);
+        }
+        catch(Exception e) {
+            redirectAttrs.addAttribute("error",e.getMessage());
+            logger.error("[ARTICLE CONTROLLER : SAVE ARTICLE] : {} " , e.getMessage());
+        }
+        return "redirect:/index";
+    }
+
+    @GetMapping("/addMovie")
+    public String Movie(Model model) {
+        model.addAttribute("movie" , new Movie());
+        try {
+            model.addAttribute("listCinema",businessImpl.getCinema());
+        } catch (Exception e) {
+            model.addAttribute("error",e.getMessage());
+            logger.error("[ARTICLE CONTROLLER : MANAGE NEW ARTICLE] : {} " , e.getMessage());
+        }
+        return "addMovie";
+    }
+
+    @GetMapping("/deleteMovie")
+    public String deleteMovie(Long id, RedirectAttributes redirectAttrs) {
+        //ToDo avant de supprimer un article, il faut supprimer les commandes qui y font références OrderItem/Order sans quoi Exception
+        try {
+            businessImpl.deleteMovie(id);
+        } catch (Exception e) {
+            redirectAttrs.addAttribute("error",e.getMessage());
+            logger.error("[ARTICLE CONTROLLER : DELETE] : {} " , e.getMessage());
+        }
+        return "redirect:/index";
     }
 }

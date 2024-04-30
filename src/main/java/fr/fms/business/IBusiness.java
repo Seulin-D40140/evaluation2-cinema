@@ -91,6 +91,8 @@ public interface IBusiness {
 	 */
 	public List<City> getCity() throws Exception;
 
+	public List<Cinema> getCinema() throws Exception;
+
 	/**
 	 * Méthode qui sauvegarde un article en base
 	 * @param cinema
@@ -99,4 +101,6 @@ public interface IBusiness {
 	public void saveCinema(Cinema cinema) throws Exception;
 
 	public void saveCity(City city) throws Exception;
+
+	public void saveMovie(Movie movie) throws Exception;
 }

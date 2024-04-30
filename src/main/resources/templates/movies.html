@@ -25,7 +25,9 @@
             <td th:text="${movie.id}"> </td>
             <td th:text="${movie.name}"> </td>
             <td th:text="${movie.description}"> </td>
-
+            <td sec:authorize="hasRole('ROLE_ADMIN')">								  									<!-- après une suppression, pour garder le même contexte ou page -->
+              <a class="btn btn-danger" onclick="return confirm('Are you sure ?')" th:href="@{ /deleteMovie (id=${movie.id}) }" >Delete</a>
+            </td>
         </table>
 
         <ul class = "nav nav-pills">			<!-- alignement de la liste -->

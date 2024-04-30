@@ -162,4 +162,13 @@ public class IBusinessImpl implements IBusiness {
 	public void saveCity(City city) throws Exception {
 		cityRepository.save(city);
 	}
+
+	@Override
+	public void saveMovie(Movie movie) throws Exception {
+		movieRepository.save(movie);
+	}
+
+	public List<Cinema> getCinema() throws Exception {
+		return cinemaRepository.findAll();
+	}
 }

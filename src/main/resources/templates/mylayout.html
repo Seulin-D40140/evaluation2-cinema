@@ -17,16 +17,19 @@
 	  <div class="container-fluid">
 	  
 		    <div class="navbar-header">
-		      <a class="navbar-brand" href="#">Ma boutique en ligne</a>
+		      <a class="navbar-brand" href="#">Cinema OnLine</a>
 		    </div>
 		    
 		    <ul class="nav navbar-nav">
 		      <li><a th:href="@{/index}">Accueil</a></li>
 	          <li sec:authorize="hasRole('ROLE_ADMIN')">
-	          	<a th:href="@{/gestionCity}">gestion city city</a>
+	          	<a th:href="@{/gestionCity}">gestion des city</a>
 	          </li>
 				<li sec:authorize="hasRole('ROLE_ADMIN')">
-					<a th:href="@{/addCinema}">add cinema</a>
+					<a th:href="@{/addCinema}">Ajout d'un cinema</a>
+				</li>
+				<li sec:authorize="hasRole('ROLE_ADMIN')">
+					<a th:href="@{/addMovie}">Ajout d'un film</a>
 				</li>
 				<li>
 		      	<a th:href="@{/vcart}" class="fa fa-shopping-cart" th:text="${nbcart}"> </a>		      	

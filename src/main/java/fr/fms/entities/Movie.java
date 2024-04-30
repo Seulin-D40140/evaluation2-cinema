@@ -25,4 +25,11 @@ public class Movie implements Serializable
     @ManyToOne
     @JoinColumn(name = "cinema_id")
     private Cinema cinema;
+
+    public Movie( String name , String description , Cinema cinema)
+    {
+        this.name = name;
+        this.description = description;
+        this.cinema = cinema;
+    }
 }
