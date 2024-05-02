@@ -1,7 +1,5 @@
 package fr.fms.web;
 
-import java.util.Date;
-
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -16,24 +14,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.fms.business.IBusinessImpl;
-import fr.fms.dao.ArticleRepository;
 import fr.fms.dao.CustomerRepository;
-import fr.fms.dao.OrderItemRepository;
-import fr.fms.entities.Article;
 import fr.fms.entities.Customer;
-import fr.fms.entities.OrderItem;
 
 @Controller
 public class CartController {
-	@Autowired
-	ArticleRepository articleRepository;
 	
 	@Autowired
 	CustomerRepository customerRepository;
 
-	
-	@Autowired
-	OrderItemRepository orderItemRepository;
+
 	
 	@Autowired
 	IBusinessImpl business;
@@ -47,9 +37,9 @@ public class CartController {
 	 */
 	@GetMapping("/vcart")		
 	public String viewCaddy(Model model) {
-		model.addAttribute("cart",business.getCart());		
-		double total = business.getTotalAmount();
-		model.addAttribute("total",total);
+//		model.addAttribute("cart",business.getCart());
+//		double total = business.getTotalAmount();
+//		model.addAttribute("total",total);
 		model.addAttribute("nbArt",business.getNbCart());
 		return "cart";
 	}
@@ -93,7 +83,7 @@ public class CartController {
 	 */
 	@GetMapping("/order")		
 	public String order(Model model) {		
-		if(business.isEmpty())	return "redirect:/index";
+//		if(business.isEmpty())	return "redirect:/index";
 		model.addAttribute("customer", new Customer());
 		return "order";
 	}
@@ -109,9 +99,9 @@ public class CartController {
 	public String postOrder(@Valid Customer customer , BindingResult bindingResult , Model model) {	
 		if(bindingResult.hasErrors())	return "order";
 		
-		model.addAttribute("cart",business.getCart());
-		double total = business.getTotalAmount();
-		model.addAttribute("total",total);		
+//		model.addAttribute("cart",business.getCart());
+//		double total = business.getTotalAmount();
+//		model.addAttribute("total",total);
 		model.addAttribute("customer",customer);		
 		business.setCustomer(customer);
 		return "recap";
@@ -124,7 +114,7 @@ public class CartController {
 	@GetMapping("/confirm")
 	@Transactional
 	public String confirm(RedirectAttributes redirectAttrs) {
-		if(business.isEmpty())	return "redirect:/index";
+//		if(business.isEmpty())	return "redirect:/index";
 		
 		try {
 		//ajout d'un client en base : ToDo s'il existe déjà..
@@ -132,13 +122,13 @@ public class CartController {
 		customerRepository.save(customer);
 
 		
-		for(Article article : business.getCart()) {
-			OrderItem orderItem = new OrderItem();
-			orderItem.setArticle(article);
-			orderItem.setPrice(article.getPrice());
-			orderItem.setQuantity(article.getQuantity());			
-			orderItemRepository.save(orderItem);
-		}		 
+//		for(Article article : business.getCart()) {
+//			OrderItem orderItem = new OrderItem();
+//			orderItem.setArticle(article);
+//			orderItem.setPrice(article.getPrice());
+//			orderItem.setQuantity(article.getQuantity());
+//			orderItemRepository.save(orderItem);
+//		}
 		business.delCart();
 		//ToDo renvoi vers une page de paiement suivi envoi mail de confirmation...
 		}

@@ -16,7 +16,5 @@ public class Payment {
     private Date datePayment;
     private long cardNumber;
     private String cardType;
-    
-//    @OneToOne(mappedBy = "payment")
-//    private Order order;
+
 }

@@ -3,7 +3,6 @@ package fr.fms.web;
 import fr.fms.business.IBusinessImpl;
 import fr.fms.dao.CityRepository;
 import fr.fms.dao.MovieRepository;
-import fr.fms.entities.Cinema;
 import fr.fms.entities.Movie;
 import fr.fms.exceptions.ManageErrors;
 import org.slf4j.Logger;
@@ -24,16 +23,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class MovieController
 {
-    private final Logger logger = LoggerFactory.getLogger(ArticleController.class);
+    private final Logger logger = LoggerFactory.getLogger(MovieController.class);
 
     @Autowired
     IBusinessImpl businessImpl;
-
-    @Autowired
-    CityRepository cityRepository;
-
-    @Autowired
-    MovieRepository movieRepository;
 
     @GetMapping("/movie")
     public String index(Model model, @RequestParam(name="page" , defaultValue = "0") int page,
@@ -74,8 +67,8 @@ public class MovieController
     }
 
     @PostMapping("/saveMovie")
-    public String saveMovie(Movie movie, BindingResult bindingResult, Model model, RedirectAttributes redirectAttrs) {
-
+    public String saveMovie(Movie movie, BindingResult bindingResult, Model model, RedirectAttributes redirectAttrs)
+    {
         try {
             if(bindingResult.hasErrors()) {
                 model.addAttribute("listCity",businessImpl.getCity());
@@ -91,7 +84,8 @@ public class MovieController
     }
 
     @GetMapping("/addMovie")
-    public String Movie(Model model) {
+    public String Movie(Model model)
+    {
         model.addAttribute("movie" , new Movie());
         try {
             model.addAttribute("listCinema",businessImpl.getCinema());
@@ -103,8 +97,8 @@ public class MovieController
     }
 
     @GetMapping("/deleteMovie")
-    public String deleteMovie(Long id, RedirectAttributes redirectAttrs) {
-        //ToDo avant de supprimer un article, il faut supprimer les commandes qui y font références OrderItem/Order sans quoi Exception
+    public String deleteMovie(Long id, RedirectAttributes redirectAttrs)
+    {
         try {
             businessImpl.deleteMovie(id);
         } catch (Exception e) {

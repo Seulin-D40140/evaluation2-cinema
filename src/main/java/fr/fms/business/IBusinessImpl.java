@@ -1,7 +1,5 @@
 package fr.fms.business;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,11 +17,6 @@ import javax.transaction.Transactional;
 
 @Service
 public class IBusinessImpl implements IBusiness {
-	@Autowired
-	ArticleRepository articleRepository;
-	
-	@Autowired
-	CategoryRepository categoryRepository;
 
 	@Autowired
 	CinemaRepository cinemaRepository;
@@ -34,70 +27,15 @@ public class IBusinessImpl implements IBusiness {
 	@Autowired
 	CityRepository cityRepository;
 	
-	private HashMap<Long, Article> cart;
+
 	private Customer customer;
-	
-	public IBusinessImpl() {
-		cart = new HashMap<>();
-		customer = null;
-	}
 
-	@Override
-	public void addArtToCart(Article article) {	
-		Article a = cart.get(article.getId()); 
-		if(a != null) {		
-			a.setQuantity(a.getQuantity()+1);
-		}
-		else cart.put(article.getId(), article);		
-	}
-
-	@Override
-	public void delArtFromCart(Long id) {
-		cart.remove(id);		
-	}
-
-	@Override
-	public void delCart() {
-		cart.clear();		
-	}
-
-	@Override
-	public List<Article> getCart() {
-		return new ArrayList<>(cart.values());
-	}
-
-	public double getTotalAmount() {
-		double total = 0;
-		for(Article article : cart.values()) {
-			total += article.getPrice()*article.getQuantity();
-		}
-		return total;
-	}
-	
-	public boolean isEmpty() {
-		return cart.isEmpty();
-	}
-	
 	public Customer getCustomer() {
 		return customer;
 	}
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
-	}
-
-	@Override
-	public int getNbCart() {
-		return cart.size();
-	}
-	
-	@Override
-	public List<Article> getArticles() throws Exception {
-		return articleRepository.findAll();
-	}
-
-	public Category getCategoryById(Long id) throws Exception {
-		return categoryRepository.getById(id);
 	}
 
 	public void order() {
@@ -126,6 +64,21 @@ public class IBusinessImpl implements IBusiness {
 	@Override
 	public Page<Cinema> getCinemaPages(String kw, int page) throws Exception {
 		return cinemaRepository.findByNameContains(kw , PageRequest.of(page, 5));
+	}
+
+	@Override
+	public void delArtFromCart(Long id) {
+
+	}
+
+	@Override
+	public void delCart() {
+
+	}
+
+	@Override
+	public int getNbCart() {
+		return 0;
 	}
 
 	@Transactional
@@ -170,5 +123,10 @@ public class IBusinessImpl implements IBusiness {
 
 	public List<Cinema> getCinema() throws Exception {
 		return cinemaRepository.findAll();
+	}
+
+	public Optional<Cinema> getCinemaByCityId(Long id)
+	{
+		return cinemaRepository.findById(id);
 	}
 }

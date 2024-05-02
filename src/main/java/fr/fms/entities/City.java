@@ -11,7 +11,7 @@ import java.util.Collection;
 
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor @ToString
-public class City<Private> implements Serializable
+public class City implements Serializable
 {
     private static final long serialVersionUID = 1L;
 

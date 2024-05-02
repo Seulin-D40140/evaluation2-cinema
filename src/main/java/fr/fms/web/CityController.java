@@ -2,7 +2,6 @@ package fr.fms.web;
 
 import fr.fms.business.IBusinessImpl;
 import fr.fms.dao.CityRepository;
-import fr.fms.entities.Cinema;
 import fr.fms.entities.City;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +19,7 @@ public class CityController
     @Autowired
     IBusinessImpl businessImpl;
 
-    @Autowired
-    CityRepository cityRepository;
-
-    private final Logger logger = LoggerFactory.getLogger(CategoryController.class);
+    private final Logger logger = LoggerFactory.getLogger(CityController.class);
 
     @PostMapping("/saveCity")
     public String save(City city, BindingResult bindingResult, Model model, RedirectAttributes redirectAttrs) {
@@ -60,4 +56,5 @@ public class CityController
         }
         return "redirect:/index";
     }
+
 }

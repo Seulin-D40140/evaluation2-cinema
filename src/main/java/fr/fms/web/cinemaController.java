@@ -4,7 +4,6 @@ import fr.fms.business.IBusinessImpl;
 import fr.fms.dao.CinemaRepository;
 import fr.fms.dao.CityRepository;
 import fr.fms.dao.MovieRepository;
-import fr.fms.entities.Article;
 import fr.fms.entities.Cinema;
 import fr.fms.exceptions.ManageErrors;
 import org.slf4j.Logger;
@@ -22,26 +21,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
 public class cinemaController
 {
     @Autowired
-    CinemaRepository cinemaRepository;
-
-    @Autowired
     IBusinessImpl businessImpl;
 
-    @Autowired
-    CityRepository cityRepository;
-
-    @Autowired
-    MovieRepository movieRepository;
-
-    private final Logger logger = LoggerFactory.getLogger(CategoryController.class);
+    private final Logger logger = LoggerFactory.getLogger(cinemaController.class);
     /**
      * Méthode en GET correspondant à l'url .../index ou page d'accueil de notre application
      * @param model sert à ajouter des éléments partagés avec la vue
@@ -87,9 +75,10 @@ public class cinemaController
             }
             model.addAttribute("username", " " +username);
         }
-        catch(Exception e) {
+        catch(Exception e)
+        {
             model.addAttribute("error",e.getMessage());
-            logger.error("[ARTICLE CONTROLLER : INDEX] : {} " , e.getMessage());
+            logger.error("[CINEMA CONTROLLER : INDEX] : {} " , e.getMessage());
         }
         return "articles";
     }
@@ -100,29 +89,31 @@ public class cinemaController
      * @return page article.html
      */
     @GetMapping("/addCinema")
-    public String article(Model model) {
+    public String article(Model model)
+    {
         model.addAttribute("cinema" , new Cinema());
         try {
             model.addAttribute("listCity",businessImpl.getCity());
         } catch (Exception e) {
             model.addAttribute("error",e.getMessage());
-            logger.error("[ARTICLE CONTROLLER : MANAGE NEW ARTICLE] : {} " , e.getMessage());
+            logger.error("[CINEMA CONTROLLER : MANAGE NEW CINEMA] : {} " , e.getMessage());
         }
         return "addCinema";
     }
 
     @GetMapping("/citySort")
-    public String categories(Long id, Model model , @RequestParam(name="page" , defaultValue = "0") int page) {
+    public String categories(Long id, Model model , @RequestParam(name="page" , defaultValue = "0") int page)
+    {
         Long idCity = (long) -1;
         try {
-            Optional<Cinema> ciner = cinemaRepository.findById(id + 1);
+            Optional<Cinema> ciner = businessImpl.getCinemaByCityId(id + 1);
             if (ciner.isPresent()) {
                 Cinema cinema = ciner.get();
                 idCity = cinema.getId();
                 model.addAttribute("idCity", idCity);
             } else return "redirect:/index?error=" + ManageErrors.STR_ERROR;
         } catch (Exception e) {
-            logger.error("[CATEGORY CONTROLLER : CATEGORY] : {} ", e.getMessage());
+            logger.error("[CINEMA CONTROLLER : CINEMA] : {} ", e.getMessage());
             return "redirect:/index?error=" + e.getMessage();
         }
         return "redirect:/index?idCity=" + idCity;
@@ -138,13 +129,13 @@ public class cinemaController
      * @return une redirection vers ../index avec les éléments permettant de garder le contexte actuel
      */
     @GetMapping("/delete")
-    public String delete(Long id, int page, String keyword , Long idCat, RedirectAttributes redirectAttrs) {
-        //ToDo avant de supprimer un article, il faut supprimer les commandes qui y font références OrderItem/Order sans quoi Exception
+    public String delete(Long id, int page, String keyword , Long idCat, RedirectAttributes redirectAttrs)
+    {
         try {
             businessImpl.deleteCinema(id);
         } catch (Exception e) {
             redirectAttrs.addAttribute("error",e.getMessage());
-            logger.error("[ARTICLE CONTROLLER : DELETE] : {} " , e.getMessage());
+            logger.error("[CINEMA CONTROLLER : DELETE] : {} " , e.getMessage());
         }
         return "redirect:/index?page="+page+"&keyword="+keyword + "&idCat=" + idCat;
     }
@@ -156,7 +147,8 @@ public class cinemaController
      * @return page edit.html pour l'édition d'un article
      */
     @GetMapping("/editCinema")
-    public String edit(Long id, Model model) {
+    public String edit(Long id, Model model)
+    {
         Cinema cinema;
 
         try {
@@ -165,7 +157,7 @@ public class cinemaController
             model.addAttribute("cinema", cinema);
         } catch (Exception e) {
             model.addAttribute("error",e.getMessage());
-            logger.error("[ARTICLE CONTROLLER : EDIT] : {} " , e.getMessage());
+            logger.error("[CINEMA CONTROLLER : EDIT] : {} " , e.getMessage());
         }
         return "editCinema";
     }
@@ -179,8 +171,8 @@ public class cinemaController
      * @return redirection vers ../index
      */
     @PostMapping("/save")
-    public String save(Cinema cinema, BindingResult bindingResult, Model model, RedirectAttributes redirectAttrs) {
-
+    public String save(Cinema cinema, BindingResult bindingResult, Model model, RedirectAttributes redirectAttrs)
+    {
         try {
             if(bindingResult.hasErrors()) {
                 model.addAttribute("listCity",businessImpl.getCity());
@@ -190,14 +182,14 @@ public class cinemaController
         }
         catch(Exception e) {
             redirectAttrs.addAttribute("error",e.getMessage());
-            logger.error("[ARTICLE CONTROLLER : SAVE ARTICLE] : {} " , e.getMessage());
+            logger.error("[CINEMA CONTROLLER : SAVE CINEMA] : {} " , e.getMessage());
         }
         return "redirect:/index";
     }
 
     @PostMapping("/update")
-    public String update(Cinema cinema, BindingResult bindingResult, Model model, RedirectAttributes redirectAttrs) {
-
+    public String update(Cinema cinema, BindingResult bindingResult, Model model, RedirectAttributes redirectAttrs)
+    {
         try {
             if(bindingResult.hasErrors()) {
                 model.addAttribute("listCity",businessImpl.getCity());
@@ -207,7 +199,7 @@ public class cinemaController
         }
         catch(Exception e) {
             redirectAttrs.addAttribute("error",e.getMessage());
-            logger.error("[ARTICLE CONTROLLER : SAVE ARTICLE] : {} " , e.getMessage());
+            logger.error("[CINEMA CONTROLLER : UPDATE CINEMA] : {} " , e.getMessage());
         }
         return "redirect:/index";
     }
